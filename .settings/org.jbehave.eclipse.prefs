@@ -1,0 +1,3 @@
+classScanner/Package-includes=com.ehei.convert.integration.*Steps
+classScanner/use_project_settings=true
+eclipse.preferences.version=1
