@@ -92,6 +92,7 @@ public class ArabicToRomanNumeralsTests extends JUnitStories {
 		@Override
 		protected List<String> storyPaths() {
 			
-	        return  Arrays.asList("com/ehei/convert/integration/ArabicToRomanNumerals.story");
+	        return  Arrays.asList("com/ehei/convert/integration/ArabicToRomanNumerals.story",
+	        		"com/ehei/convert/integration/RomanNumeralsToArabic.story");
 		}
 	}

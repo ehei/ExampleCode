@@ -19,9 +19,21 @@ public class ConversionSteps{
 		 
 		assertThat(this.converter.convert()).isEqualTo(numeral);
 	}
+	
 	@Given("I have started the converter")
 	public void givenIHaveStartedTheConverter(){
 		
 		this.converter = new ArabicToRomanNumeralConverter();
+	}
+	
+	@When("I enter Roman Numeral $numeral")
+	public void whenIEnterRomanNumeralnumeral(@Named("numeral") String numeral){
+
+		this.converter.setNumeral(numeral);
+	}
+	@Then("$number is returned")
+	public void thennumberIsReturned(@Named("number") int number){
+
+		assertThat(this.converter.value()).isEqualTo(number);
 	}
 }

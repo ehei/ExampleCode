@@ -20,19 +20,40 @@ public class ArabicToRomanNumeralConverterTest {
 	@Test
 	public void convert_shouldReturnEmptyString_ifNoValueGivenToConvert() throws Exception {
 		
-		assertThat(_converter.convert()).isEmpty();
+		try {
+			_converter.convert();
+			fail();
+		}
+		catch (IllegalArgumentException exception) {
+			
+			assertThat(exception.getMessage()).isEqualTo("The value '0' is outside the valid range for Roman Numerals (0 < X < 4000)");
+		}
 	}
 	
 	@Test
 	public void convert_givenValueLessThanZero_shouldReturnEmptyString() throws Exception {
 		
-		assertThat(_converter.convert(-1)).isEmpty();
+		try {
+			_converter.convert(-1);
+			fail();
+		}
+		catch (IllegalArgumentException exception) {
+			
+			assertThat(exception.getMessage()).isEqualTo("The value '-1' is outside the valid range for Roman Numerals (0 < X < 4000)");
+		}
 	}
 	
 	@Test
-	public void convert_givenValueEqualToZero_shouldReturnEmptyString() throws Exception {
+	public void convert_givenValueEqualToZero_shouldThrowAnException() throws Exception {
 		
-		assertThat(_converter.convert(0)).isEmpty();
+		try {
+			_converter.convert(0);
+			fail();
+		}
+		catch (IllegalArgumentException exception) {
+			
+			assertThat(exception.getMessage()).isEqualTo("The value '0' is outside the valid range for Roman Numerals (0 < X < 4000)");
+		}
 	}
 
 	@Test
@@ -60,5 +81,65 @@ public class ArabicToRomanNumeralConverterTest {
 		_converter.setValue(1989);
 
 		assertThat(_converter.convert()).isEqualTo("MCMLXXXIX");
+	}
+	
+	@Test
+	public void value_withValueSet_shouldReturnConvertedValue() throws Exception {
+		
+		_converter.setNumeral("I");
+		
+		assertThat(_converter.value()).isEqualTo(1);
+	}
+	
+	@Test
+	public void value_withValueSet_shouldReturnConvertedValue_Fourteen() throws Exception {
+		
+		_converter.setNumeral("XIV");
+		
+		assertThat(_converter.value()).isEqualTo(14);
+	}
+	
+	@Test
+	public void value_withThreeAndTwenty_shouldReturnConvertedValue() throws Exception {
+		
+		assertThat(_converter.value("XXIII")).isEqualTo(23);
+	}
+
+	@Test
+	public void value_withNothingSetToConvert_shouldReturnZero() throws Exception {
+		
+		assertThat(_converter.value()).isEqualTo(0);
+	}
+	
+	@Test
+	public void value_withUnhandledCharacters_shouldThrowException() throws Exception {
+		
+		try {
+			_converter.value("QWERTY");
+			fail();
+		}
+		catch (NumberFormatException exception) {
+			
+			assertThat(exception.getMessage()).isEqualTo("The string 'QWERTY' is not a valid Roman Numeral");
+		}
+	}
+	
+	@Test
+	public void convert_withValueGreaterThan4000_shouldThrowException() throws Exception {
+		
+		try {
+			_converter.convert(4001);
+			fail();
+		}
+		catch (IllegalArgumentException exception) {
+			
+			assertThat(exception.getMessage()).isEqualTo("The value '4001' is outside the valid range for Roman Numerals (0 < X < 4000)");
+		}
+	}
+
+	@Test
+	public void value_withBigValue_shouldStillWork() throws Exception {
+		
+		assertThat(_converter.value("MCMLXXXIX")).isEqualTo(1989);
 	}
 }
