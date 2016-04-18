@@ -1,61 +1,42 @@
 package com.ehei.convert;
 
+import java.util.TreeMap;
+
 public class ArabicToRomanNumeralConverter {
 
-	private int valueToConvert;
-	private int workingValue;
-	private StringBuilder output = new StringBuilder();
-
-	public void setValue(int valueToConvert) {
+	private static final TreeMap<Integer, RomanNumeral> map = new TreeMap<Integer, RomanNumeral>();
+	private int numberToConvert;
+	
+	static {
 		
-		this.valueToConvert = valueToConvert;
-		this.workingValue = valueToConvert;
-		
-		this.output.setLength(0);
-	}
-
-	public boolean consume() {
-
-		if (this.workingValue > 0) {
-			
-			if (this.workingValue >= 10) {
-				
-				this.workingValue -= 10;
-				this.output.append("X");
-			}
-			else if (this.workingValue  >= 5) {
-				
-				this.workingValue -= 5;
-				this.output.append("V");
-			}
-			else if (this.workingValue  >= 1) {
-				
-				this.workingValue -= 1;
-				this.output.append("I");
-			}
-			
-			return true;
+		for (RomanNumeral numeral : RomanNumeral.values()) {
+			map.put(numeral.getNumericValue(), numeral);
 		}
-		return false;
 	}
-
-	public boolean hasValue() {
-
-		return this.valueToConvert > 0;
-	}
-
-	public String getOutput() {
-		
-		return this.output.toString();
-	}
-
+	
 	public String convert() {
 		
-		while (this.consume()) {
-			
-		}
+		return this.convert(this.numberToConvert);
+	}
+
+	public String convert(int value) {
 		
-		return this.output.toString();
+		if (value <= 0)
+			return "";
+		
+		int lowestValue =  map.floorKey(value);
+		
+        if ( value == lowestValue ) {
+        	
+            return map.get(value).toString();
+        }
+        
+        return map.get(lowestValue).toString() + convert(value - lowestValue).toString();
+	}
+
+	public void setValue(int number) {
+		
+		this.numberToConvert = number;
 	}
 
 }

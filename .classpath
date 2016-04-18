@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="lib/freemarker-2.3.23.jar"/>
+	<classpathentry kind="lib" path="lib/plexus-lang-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/plexus-utils-3.0.22.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
