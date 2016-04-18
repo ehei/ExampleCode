@@ -1,27 +1,42 @@
 package com.ehei.convert;
 
+import java.util.TreeMap;
+
 public class ArabicToRomanNumeralConverter {
 
-	private int valueToConvert;
-
-	public void setValue(int valueToConvert) {
+	private static final TreeMap<Integer, RomanNumeral> map = new TreeMap<Integer, RomanNumeral>();
+	private int numberToConvert;
+	
+	static {
 		
-		this.valueToConvert = valueToConvert;	
+		for (RomanNumeral numeral : RomanNumeral.values()) {
+			map.put(numeral.getNumericValue(), numeral);
+		}
 	}
-
-	public boolean consume() {
-
-		return true;
-	}
-
-	public boolean hasValue() {
-
-		return false;
-	}
-
-	public String getOutput() {
+	
+	public String convert() {
 		
-		return null;
+		return this.convert(this.numberToConvert);
+	}
+
+	public String convert(int value) {
+		
+		if (value <= 0)
+			return "";
+		
+		int lowestValue =  map.floorKey(value);
+		
+        if ( value == lowestValue ) {
+        	
+            return map.get(value).toString();
+        }
+        
+        return map.get(lowestValue).toString() + convert(value - lowestValue).toString();
+	}
+
+	public void setValue(int number) {
+		
+		this.numberToConvert = number;
 	}
 
 }

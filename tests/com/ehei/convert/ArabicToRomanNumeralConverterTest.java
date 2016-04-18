@@ -18,54 +18,47 @@ public class ArabicToRomanNumeralConverterTest {
 	}
 	
 	@Test
-	public void hasValue_shouldReturnFalse_ifValueWasNotSet() throws Exception {
+	public void convert_shouldReturnEmptyString_ifNoValueGivenToConvert() throws Exception {
 		
-		assertThat(_converter.hasValue()).isFalse();
+		assertThat(_converter.convert()).isEmpty();
 	}
 	
 	@Test
-	public void hasValue_shouldReturnFalse_ifValueWasSetToLessThanZero() throws Exception {
+	public void convert_givenValueLessThanZero_shouldReturnEmptyString() throws Exception {
 		
-		_converter.setValue(-12);
-		
-		assertThat(_converter.hasValue()).isFalse();
+		assertThat(_converter.convert(-1)).isEmpty();
 	}
 	
 	@Test
-	public void hasValue_shouldReturnFalse_ifValueWasSetToZero() throws Exception {
+	public void convert_givenValueEqualToZero_shouldReturnEmptyString() throws Exception {
 		
-		_converter.setValue(0);
+		assertThat(_converter.convert(0)).isEmpty();
+	}
+
+	@Test
+	public void convert_givenAValueOfEleven_shouldConsumeUntilReachingZero_andAddXIToOutput() throws Exception {
 		
-		assertThat(_converter.hasValue()).isFalse();
+		assertThat(_converter.convert(11)).isEqualTo("XI");
+	}
+
+	@Test
+	public void convert_givenAValueOfThree_shouldConsumeUntilReachingZero_andAddIIIToOutput() throws Exception {
+		
+		assertThat(_converter.convert(3)).isEqualTo("III");
 	}
 	
 	@Test
-	public void consume_shouldReturnFalse_IfThereWasNothingToConsume() throws Exception {
+	public void convert_givenLargeValue_shouldWork() throws Exception {
 		
-		assertThat(_converter.consume()).isFalse();
-	}
-
-	@Test
-	public void consume_givenNonZeroValue_shouldReturnTrue() throws Exception {
-		
-		_converter.setValue(1);
-		
-		assertThat(_converter.consume()).isTrue();
+		assertThat(_converter.convert(1066)).isEqualTo("MLXVI");
+		assertThat(_converter.convert(1989)).isEqualTo("MCMLXXXIX");
 	}
 	
 	@Test
-	public void getOutput_shouldReturnEmptyString_ifNothingHasBeenConverted() throws Exception {
+	public void convert_withValue_givenLargeValues_shouldWork() throws Exception {
 		
-		assertThat(_converter.getOutput()).isEmpty();
+		_converter.setValue(1989);
+
+		assertThat(_converter.convert()).isEqualTo("MCMLXXXIX");
 	}
-
-	@Test
-	public void consume_givenAValueOfSix_shouldTakeOffFiveFromTheTotal_andAddVToTheOutput() {
-
-		_converter.setValue(6);
-		
-		assertThat(_converter.consume()).isTrue();
-		assertThat(_converter.getOutput()).isEqualTo("V");
-	}
-
 }
