@@ -18,7 +18,7 @@ public class ArabicToRomanNumeralConverterTest {
 	}
 	
 	@Test
-	public void convert_shouldReturnEmptyString_ifNoValueGivenToConvert() throws Exception {
+	public void convert_throwsIllegalArgumentException_ifNoValueGivenToConvert() throws Exception {
 		
 		try {
 			_converter.convert();
@@ -31,7 +31,7 @@ public class ArabicToRomanNumeralConverterTest {
 	}
 	
 	@Test
-	public void convert_givenValueLessThanZero_shouldReturnEmptyString() throws Exception {
+	public void convert_givenValueLessThanZero_throwsIllegalArgumentException() throws Exception {
 		
 		try {
 			_converter.convert(-1);
@@ -44,7 +44,7 @@ public class ArabicToRomanNumeralConverterTest {
 	}
 	
 	@Test
-	public void convert_givenValueEqualToZero_shouldThrowAnException() throws Exception {
+	public void convert_givenValueEqualToZero_throwsIllegalArgumentException() throws Exception {
 		
 		try {
 			_converter.convert(0);
