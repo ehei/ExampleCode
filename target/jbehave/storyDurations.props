@@ -1,0 +1,7 @@
+#org.jbehave.core.embedder.StoryManager
+#Sat Nov 12 22:46:51 EST 2016
+com/ehei/convert/integration/RomanNumeralsToArabic.story=0
+com/ehei/convert/integration/ArabicToRomanNumerals.story=0
+threads=1
+total=0
+threadAverage=0
